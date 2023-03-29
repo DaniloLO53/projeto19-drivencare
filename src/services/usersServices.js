@@ -1,5 +1,4 @@
 import usersRepositories from '../repositories/usersRepositories.js'
-import { CONFLICT, INTERNAL_SERVER_ERROR } from '../utils/codes.js';
 import customExceptions from '../utils/customExceptions.js';
 import { USER_ALREADY_EXISTS } from '../utils/exceptionMessages.js';
 import bcrypt from 'bcrypt';

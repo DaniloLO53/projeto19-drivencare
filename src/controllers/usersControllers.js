@@ -1,5 +1,6 @@
-import { CONFLICT, CREATED, INTERNAL_SERVER_ERROR } from "../utils/codes.js";
+import codes from "../utils/codes.js";
 import usersServices from '../services/usersServices.js';
+import customExceptions from "../utils/customExceptions.js";
 
 async function enter(request, response) {
   const { email, password, typeOfUser } = request.body;
@@ -9,7 +10,7 @@ async function enter(request, response) {
   } catch (error) {
     console.log('Error: ', error);
 
-    return response.status(CREATED);
+    return response.status(codes.CREATED);
   }
 };
 
@@ -20,11 +21,13 @@ async function create(request, response) {
     console.log('Create: ', email)
     await usersServices.create({email, password, name, typeOfUser});
 
-    return response.sendStatus(CREATED);
+    return response.sendStatus(codes.CREATED);
   } catch (error) {
     console.log('Error: ', error);
+    const status = customExceptions.hasValidCode(error.code)
+      || codes.INTERNAL_SERVER_ERROR;
 
-    return response.status(error.code || INTERNAL_SERVER_ERROR).send(error.message);
+    return response.status(status).send(error.message);
   }
 };
 

@@ -1,5 +1,9 @@
-export const OK = 200;
-export const CREATED = 201;
-export const CONFLICT = 409;
-export const UNPROCESSABLE_ENTITY = 422;
-export const INTERNAL_SERVER_ERROR = 500;
+const codes = {
+  OK: 200,
+  CREATED: 201,
+  CONFLICT: 409,
+  UNPROCESSABLE_ENTITY: 422,
+  INTERNAL_SERVER_ERROR: 500,
+};
+
+export default codes;

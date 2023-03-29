@@ -1,4 +1,4 @@
-import { UNPROCESSABLE_ENTITY } from "../utils/codes.js";
+import codes from "../utils/codes.js";
 
 export function validateSchema(schema) {
   return (request, response, next) => {
@@ -6,11 +6,9 @@ export function validateSchema(schema) {
 
     if (error) {
       return response
-        .status(UNPROCESSABLE_ENTITY)
+        .status(codes.UNPROCESSABLE_ENTITY)
         .send(error.details.map((detail) => detail.message));
     }
-
-    console.log('next')
 
     next();
   };
