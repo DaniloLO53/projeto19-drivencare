@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-const signinSchema = Joi.object({
+export const signinSchema = Joi.object({
   email: Joi
     .string()
     .trim()
@@ -15,6 +15,5 @@ const signinSchema = Joi.object({
     .trim()
     .min(1)
     .required(),
+  typeOfUser: Joi.string().valid('pacients','doctors').required(),
 });
-
-export default signinSchema;

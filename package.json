@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "nodemon ./src/config/server.js"
+    "watch": "npx kill-port 5000 && nodemon ./src/config/server.js"
   },
   "repository": {
     "type": "git",

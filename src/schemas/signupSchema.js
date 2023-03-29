@@ -2,7 +2,8 @@ import Joi from 'joi';
 
 const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-const signupSchema = Joi.object({
+export const signupSchema = Joi.object({
+  typeOfUser: Joi.string().valid('pacients','doctors').required(),
   name: Joi
     .string()
     .trim()
@@ -24,5 +25,3 @@ const signupSchema = Joi.object({
     .ref('password')
   // .error((error) => new Error(error))
 });
-
-export default signupSchema;

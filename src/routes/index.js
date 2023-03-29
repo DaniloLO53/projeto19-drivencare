@@ -1,10 +1,11 @@
 import express from 'express';
-import consultationsRoutes from './consultations.routes.js';
-import doctorsRoutes from './doctors.routes.js';
-import pacientsRoutes from './pacients.routes.js';
+import consultationsRoutes from './consultationsRoutes.js';
+import doctorsRoutes from './doctorsRoutes.js';
+import pacientsRoutes from './pacientsRoutes.js';
 
 const router = express.Router();
 
-router.use([consultationsRoutes, doctorsRoutes, pacientsRoutes]);
+// router.use('/doctors', doctorsRoutes);
+router.use('/pacients', pacientsRoutes);
 
-export default { router };
+export default router;
