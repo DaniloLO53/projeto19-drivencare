@@ -8,6 +8,14 @@ function conflict(message) {
   return exception;
 };
 
+function badRequest(message) {
+  const exception = new Error(message);
+
+  exception.code = codes.BAD_REQUEST;
+
+  return exception;
+};
+
 function internalServerError(message) {
   const exception = new Error(message);
 
@@ -30,5 +38,6 @@ function hasValidCode(code) {
 export default {
   conflict,
   internalServerError,
+  badRequest,
   hasValidCode
 };

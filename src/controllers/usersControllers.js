@@ -6,11 +6,15 @@ async function enter(request, response) {
   const { email, password, typeOfUser } = request.body;
 
   try {
-    // await usersServices.create(email, password, name)
+    const token = await usersServices.enter({email, password, typeOfUser});
+
+    return response.status(codes.CREATED).send(token);
   } catch (error) {
     console.log('Error: ', error);
+    const status = customExceptions.hasValidCode(error.code)
+      || codes.INTERNAL_SERVER_ERROR;
 
-    return response.status(codes.CREATED);
+    return response.status(status).send(error.message);
   }
 };
 

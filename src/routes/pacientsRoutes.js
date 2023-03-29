@@ -6,7 +6,7 @@ import { signinSchema } from '../schemas/signinSchema.js';
 
 const pacientRouter = express.Router();
 
-pacientRouter.post("/sign-in", validateSchema(signinSchema), usersControllers.enter);
 pacientRouter.post("/sign-up", validateSchema(signupSchema), usersControllers.create);
+pacientRouter.post("/sign-in", validateSchema(signinSchema), usersControllers.enter);
 
 export default pacientRouter;
