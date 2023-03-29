@@ -4,6 +4,9 @@ import usersControllers from '../controllers/usersControllers.js';
 import { signupSchema } from '../schemas/signupSchema.js';
 import { signinSchema } from '../schemas/signinSchema.js';
 
-const pacientRoute = express.Router();
+const userRoute = express.Router();
 
-export default pacientRoute;
+userRoute.post("/sign-up", validateSchema(signupSchema), usersControllers.create);
+userRoute.post("/sign-in", validateSchema(signinSchema), usersControllers.enter);
+
+export default userRoute;

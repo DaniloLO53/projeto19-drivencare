@@ -4,9 +4,6 @@ import { signupSchema } from '../schemas/signupSchema.js';
 import { signinSchema } from '../schemas/signinSchema.js';
 import { validateSchema } from '../middlewares/validateMiddleware.js';
 
-const doctorRouter = express.Router();
+const doctorRoute = express.Router();
 
-doctorRouter.post("/sign-up", validateSchema(signupSchema), usersControllers.create);
-doctorRouter.post("/sign-in", validateSchema(signinSchema), usersControllers.enter);
-
-export default doctorRouter;
+export default doctorRoute;
