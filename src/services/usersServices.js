@@ -5,6 +5,9 @@ import { NO_USER, USER_ALREADY_EXISTS } from '../utils/exceptionMessages.js';
 import bcrypt from 'bcrypt';
 import v4 from 'uuidv4';
 import { DAY_TO_MILLISECONDS } from '../utils/conversions.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 async function hashPassoword(password) {
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -15,8 +18,9 @@ async function hashPassoword(password) {
 function createToken(uuid) {
   const days = 3;
   const key = process.env.SECRET_KEY;
+  console.log('key', key)
   try {
-    const token = jwt.sign({ uuid }, 'key', {
+    const token = jwt.sign({ uuid }, key, {
       expiresIn: DAY_TO_MILLISECONDS * days / 1000
     });
 
