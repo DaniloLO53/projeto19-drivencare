@@ -1,5 +1,5 @@
-import signinSchema from "../schemas/signin.schema.js";
-import signupSchema from "../schemas/signup.schema.js";
+import signinSchema from "../schemas/signinSchema.js";
+import signupSchema from "../schemas/signupSchema.js";
 import { INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY } from "../utils/statusCode.utils.js";
 
 async function validate(request, response, next) {
@@ -15,7 +15,7 @@ async function validate(request, response, next) {
   
       console.log('Error on validation: ', onSignin || onSignup);
 
-      return response.sendStatus(UNPROCESSABLE_ENTITY);
+      return response.status(UNPROCESSABLE_ENTITY).send(onSignin || onSignup);
     }
 
     next();
