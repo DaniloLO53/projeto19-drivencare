@@ -31,7 +31,7 @@ async function insertSession({ token, userUuid, sessionUuid }) {
 
 async function verifyIsDoctor(token) {
   return await db.query(
-    `    
+    `
     SELECT users.is_doctor
     FROM users
     JOIN sessions
