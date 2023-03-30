@@ -6,10 +6,11 @@ const signinSchema = Joi.object({
   email: Joi.string()
     .trim()
     .min(1)
+    .max(100)
     .regex(new RegExp(emailPattern))
     .error((error) => new Error(error))
     .required(),
-  password: Joi.string().trim().min(1).required(),
+  password: Joi.string().trim().min(1).max(100).required(),
 });
 
 export default signinSchema;
