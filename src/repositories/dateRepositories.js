@@ -10,6 +10,29 @@ async function insert({ start, finish, day, doctorUuid, dateUuid, avaliable }) {
   );
 }
 
+async function get({ start, day }) {
+  return await db.query(
+    `
+        SELECT * FROM dates WHERE start = $1 AND day = $2
+    `,
+    [start, day],
+  );
+}
+
+async function isOverLapping({ start, finish, day }) {
+  console.log(start);
+  return await db.query(
+    `
+      SELECT start, finish FROM dates 
+      WHERE (start::time, finish::time) OVERLAPS ($1::time, $2::time)
+      AND day = $3
+    `,
+    [start, finish, day],
+  );
+}
+
 export default {
   insert,
+  get,
+  isOverLapping,
 };

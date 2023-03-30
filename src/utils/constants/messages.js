@@ -3,6 +3,7 @@ export default {
   UNAUTHORIZED: "You can't access or modify this content",
   INVALID_TOKEN: "Invalid token",
   USER_ALREADY_EXISTS: "This user already exists",
+  CONTENT_ALREADY_EXISTS: "This content already exists",
   UNPROCESSABLE_ENTITY: "Content provided is invalid",
   INTERNAL_SERVER_ERROR: "Internal server error",
 };
