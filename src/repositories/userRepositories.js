@@ -19,7 +19,21 @@ async function insertUser({ name, email, password, is_doctor, uuid }) {
   );
 }
 
+async function verifyIsDoctor(token) {
+  return await db.query(
+    `    
+    SELECT users.is_doctor
+    FROM users
+    JOIN sessions
+      ON sessions.user_uuid = users.uuid
+    WHERE token = $1
+  `,
+    [token],
+  );
+}
+
 export default {
   getByEmail,
   insertUser,
+  verifyIsDoctor,
 };
