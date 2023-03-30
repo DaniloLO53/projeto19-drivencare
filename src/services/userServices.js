@@ -1,5 +1,5 @@
-import userRepositories from "../repositories/userRepositories";
-import messages from "../utils/constants/messages";
+import userRepositories from "../repositories/userRepositories.js";
+import messages from "../utils/constants/messages.js";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 
@@ -8,20 +8,18 @@ async function create({ name, email, password, is_doctor }) {
   const [user] = users;
 
   if (user) {
-    const hashPassword = await bcrypt.hash(password, 10);
-    const uuid = uuidv4();
-
-    await userRepositories.insertUser({
-      name,
-      email,
-      password: hashPassword,
-      is_doctor,
-      uuid,
-    });
-    return;
+    throw new Error(messages.USER_ALREADY_EXISTS);
   }
+  const hashPassword = await bcrypt.hash(password, 10);
+  const uuid = uuidv4();
 
-  throw new Error(messages.CONFLICT);
+  await userRepositories.insertUser({
+    name,
+    email,
+    password: hashPassword,
+    is_doctor,
+    uuid,
+  });
 }
 
 export default {

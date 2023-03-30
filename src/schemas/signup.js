@@ -13,6 +13,7 @@ const signupSchema = Joi.object({
     .required(),
   password: Joi.string().trim().min(1).required(),
   confirmPassword: Joi.ref("password"),
+  is_doctor: Joi.boolean().required(),
 });
 
 export default signupSchema;
