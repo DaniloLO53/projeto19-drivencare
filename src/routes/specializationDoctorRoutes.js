@@ -1,16 +1,16 @@
 import express from "express";
-import specializationDateControllers from "../controllers/specializationDateControllers.js";
+import specializationDoctorControllers from "../controllers/specializationDoctorControllers.js";
 import { validateSchema } from "../middlewares/validateSchema.js";
 import verifyIsDoctor from "../middlewares/verifyIsDoctor.js";
 import { specializationSchema } from "../schemas/data.js";
 
-const specializationDateRoute = express.Router();
+const specializationDoctorRoute = express.Router();
 
-specializationDateRoute.post(
+specializationDoctorRoute.post(
   "/create",
   validateSchema(specializationSchema),
   verifyIsDoctor.verify,
-  specializationDateControllers.create,
+  specializationDoctorControllers.create,
 );
 
-export default specializationDateRoute;
+export default specializationDoctorRoute;

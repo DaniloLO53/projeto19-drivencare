@@ -17,7 +17,7 @@ const dateSchema = Joi.object({
 });
 
 const specializationDateSchema = Joi.object({
-  date_uuid: Joi.string().trim().min(1).max(5).regex(new RegExp(uuidPattern)).required(),
+  date_uuid: Joi.string().trim().min(1).regex(new RegExp(uuidPattern)).required(),
   specialization_uuid: Joi.string()
     .trim()
     .min(1)
@@ -26,4 +26,18 @@ const specializationDateSchema = Joi.object({
     .required(),
 });
 
-export { specializationSchema, dateSchema, specializationDateSchema };
+const specializationDoctorSchema = Joi.object({
+  doctor_uuid: Joi.string().trim().min(1).regex(new RegExp(uuidPattern)).required(),
+  specialization_uuid: Joi.string()
+    .trim()
+    .min(1)
+    .regex(new RegExp(uuidPattern))
+    .required(),
+});
+
+export {
+  specializationSchema,
+  dateSchema,
+  specializationDateSchema,
+  specializationDoctorSchema,
+};
