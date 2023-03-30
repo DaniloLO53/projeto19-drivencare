@@ -2,10 +2,7 @@ import userRepositories from "../repositories/userRepositories.js";
 import messages from "../utils/constants/messages.js";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
-import dotenv from "dotenv";
 import tokenGenerators from "./tokenGenerator.js";
-
-dotenv.config();
 
 async function create({ name, email, password, is_doctor }) {
   const { rows: users } = await userRepositories.getByEmail(email);
@@ -44,16 +41,6 @@ async function enter({ email, password }) {
   return token;
 }
 
-async function createSpecialization({ name, doctorUuid }) {
-  const specializationUuid = uuidv4();
-
-  await userRepositories.insertSpecialization({
-    specialization: name,
-    doctorUuid,
-    specializationUuid,
-  });
-}
-
 async function descrypt(passwordFromRequest, passwordFromDb) {
   const validPassword = await bcrypt.compare(passwordFromRequest, passwordFromDb);
 
@@ -63,5 +50,4 @@ async function descrypt(passwordFromRequest, passwordFromDb) {
 export default {
   create,
   enter,
-  createSpecialization,
 };

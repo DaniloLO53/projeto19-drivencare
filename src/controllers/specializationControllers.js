@@ -1,14 +1,14 @@
-import userServices from "../services/userServices.js";
+import specializationServices from "../services/specializationServices.js";
 import codes from "../utils/constants/codes.js";
 import errorHandlers from "../utils/errors/errorHandlers.js";
 
-async function createSpecialization(request, response) {
+async function create(request, response) {
   const { name } = request.body;
   const { CREATED } = codes;
 
   try {
     const doctorUuid = response.locals.doctor_uuid;
-    await userServices.createSpecialization({ name, doctorUuid });
+    await specializationServices.create({ name, doctorUuid });
 
     return response.sendStatus(CREATED);
   } catch (error) {
@@ -17,5 +17,5 @@ async function createSpecialization(request, response) {
 }
 
 export default {
-  createSpecialization,
+  create,
 };

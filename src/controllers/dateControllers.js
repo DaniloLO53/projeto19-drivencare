@@ -1,4 +1,4 @@
-import userServices from "../services/userServices.js";
+import dateServices from "../services/dateServices.js";
 import codes from "../utils/constants/codes.js";
 import errorHandlers from "../utils/errors/errorHandlers.js";
 
@@ -8,7 +8,7 @@ async function createDate(request, response) {
 
   try {
     const doctorUuid = response.locals.doctor_uuid;
-    await userServices.createDate({
+    await dateServices.create({
       start,
       finish,
       day,

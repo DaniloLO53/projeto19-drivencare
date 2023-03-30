@@ -29,16 +29,6 @@ async function insertSession({ token, userUuid, sessionUuid }) {
   );
 }
 
-async function insertSpecialization({ doctorUuid, specializationUuid, specialization }) {
-  return await db.query(
-    `
-        INSERT INTO specializations (uuid, user_uuid, name)
-        VALUES ($1, $2, $3)
-    `,
-    [specializationUuid, doctorUuid, specialization],
-  );
-}
-
 async function verifyIsDoctor(token) {
   return await db.query(
     `
@@ -57,5 +47,4 @@ export default {
   insertUser,
   verifyIsDoctor,
   insertSession,
-  insertSpecialization,
 };
