@@ -1,4 +1,4 @@
-import { DAY_TO_MILLISECONDS } from "../utils/constants/conversions";
+import { DAY_TO_MILLISECONDS } from "../utils/constants/conversions.js";
 import jwt from "jsonwebtoken";
 
 function generateToken(uuid) {

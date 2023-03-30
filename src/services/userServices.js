@@ -28,18 +28,20 @@ async function create({ name, email, password, is_doctor }) {
 
 async function enter({ email, password }) {
   const { rows: users } = await userRepositories.getByEmail(email);
+  if (users.length === 0) throw new Error(messages.NO_USER);
+
   const [user] = users;
   const { uuid: userUuid } = user;
 
   await descrypt(password, user.password);
-
-  if (!user) throw new Error(messages.NO_USER);
 
   const token = tokenGenerators.generateToken(userUuid);
 
   const sessionUuid = uuidv4();
 
   await userRepositories.insertSession({ token, userUuid, sessionUuid });
+
+  return token;
 }
 
 async function descrypt(passwordFromRequest, passwordFromDb) {
