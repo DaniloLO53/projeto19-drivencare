@@ -12,18 +12,28 @@ function handle(error, response) {
 
   const { USER_ALREADY_EXISTS, NO_USER } = messages;
 
+  let statusCode;
+
+  console.log(error);
+
   switch (error.message) {
     case UNAUTHORIZED:
-      return response.status(UNAUTHORIZED).send({ error: error.message });
+      statusCode = UNAUTHORIZED;
+      break;
     case NO_USER:
-      return response.status(BAD_REQUEST).send({ error: error.message });
+      statusCode = BAD_REQUEST;
+      break;
     case USER_ALREADY_EXISTS:
-      return response.status(CONFLICT).send({ error: error.message });
+      statusCode = CONFLICT;
+      break;
     case UNPROCESSABLE_ENTITY:
-      return response.status(UNPROCESSABLE_ENTITY).send({ error: error.message });
+      statusCode = UNPROCESSABLE_ENTITY;
+      break;
     default:
-      return response.status(INTERNAL_SERVER_ERROR).send({ error: error.message });
+      statusCode = INTERNAL_SERVER_ERROR;
   }
+
+  return response.status(statusCode).send({ error: error.message });
 }
 
 export default {

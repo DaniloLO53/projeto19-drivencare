@@ -11,7 +11,6 @@ async function create(request, response) {
 
     return response.sendStatus(CREATED);
   } catch (error) {
-    console.log(error);
     errorHandlers.handle(error, response);
   }
 }
@@ -25,7 +24,6 @@ async function enter(request, response) {
 
     return response.status(CREATED).send({ token });
   } catch (error) {
-    console.log(error);
     errorHandlers.handle(error, response);
   }
 }
