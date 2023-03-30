@@ -1,4 +1,5 @@
 import express from "express";
+import specializationControllers from "../controllers/specializationControllers.js";
 import userControllers from "../controllers/userControllers.js";
 import { validateSchema } from "../middlewares/validateSchema.js";
 import verifyIsDoctor from "../middlewares/verifyIsDoctor.js";
@@ -15,7 +16,7 @@ userRoute.post(
   "/specializations",
   validateSchema(specializationSchema),
   verifyIsDoctor.verify,
-  (req, res) => res.sendStatus(201),
+  specializationControllers.createSpecialization,
 );
 
 export default userRoute;

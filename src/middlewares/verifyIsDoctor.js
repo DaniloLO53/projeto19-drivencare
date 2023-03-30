@@ -1,4 +1,5 @@
 import userRepositories from "../repositories/userRepositories.js";
+import codes from "../utils/constants/codes.js";
 import messages from "../utils/constants/messages.js";
 
 async function verify(request, response, next) {
@@ -9,9 +10,11 @@ async function verify(request, response, next) {
 
   const [info] = infos;
 
-  if (infos.length === 0 || !info.is_doctor) throw new Error(messages.UNAUTHORIZED);
+  if (infos.length === 0 || !info.is_doctor)
+    return response.status(codes.UNAUTHORIZED).send(messages.UNAUTHORIZED);
 
   console.log(infos);
+  response.locals.doctor_uuid = info.uuid;
 
   next();
 }

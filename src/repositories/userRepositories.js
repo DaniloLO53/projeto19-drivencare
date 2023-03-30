@@ -29,10 +29,20 @@ async function insertSession({ token, userUuid, sessionUuid }) {
   );
 }
 
+async function insertSpecialization({ doctorUuid, specializationUuid, specialization }) {
+  return await db.query(
+    `
+        INSERT INTO specializations (uuid, user_uuid, name)
+        VALUES ($1, $2, $3)
+    `,
+    [specializationUuid, doctorUuid, specialization],
+  );
+}
+
 async function verifyIsDoctor(token) {
   return await db.query(
     `
-    SELECT users.is_doctor
+    SELECT users.is_doctor, users.uuid
     FROM users
     JOIN sessions
       ON sessions.user_uuid = users.uuid
@@ -47,4 +57,5 @@ export default {
   insertUser,
   verifyIsDoctor,
   insertSession,
+  insertSpecialization,
 };

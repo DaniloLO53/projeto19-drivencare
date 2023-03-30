@@ -44,6 +44,16 @@ async function enter({ email, password }) {
   return token;
 }
 
+async function createSpecialization({ name, doctorUuid }) {
+  const specializationUuid = uuidv4();
+
+  await userRepositories.insertSpecialization({
+    specialization: name,
+    doctorUuid,
+    specializationUuid,
+  });
+}
+
 async function descrypt(passwordFromRequest, passwordFromDb) {
   const validPassword = await bcrypt.compare(passwordFromRequest, passwordFromDb);
 
@@ -53,4 +63,5 @@ async function descrypt(passwordFromRequest, passwordFromDb) {
 export default {
   create,
   enter,
+  createSpecialization,
 };
