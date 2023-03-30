@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import tokenHandler from "./tokenHandler.js";
 
-async function create({ name, email, password, is_doctor }) {
+async function create({ name, email, password, is_doctor, is_admin }) {
   const { rows: users } = await userRepositories.getByEmail(email);
   const [user] = users;
 
@@ -20,6 +20,7 @@ async function create({ name, email, password, is_doctor }) {
     password: hashPassword,
     is_doctor,
     uuid,
+    is_admin,
   });
 }
 

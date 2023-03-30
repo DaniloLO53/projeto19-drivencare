@@ -1,12 +1,12 @@
 import db from "../database/database.js";
 
-async function insert({ doctorUuid, specializationUuid, specialization }) {
+async function insert({ specializationUuid, specialization }) {
   return await db.query(
     `
-        INSERT INTO specializations (uuid, user_uuid, name)
-        VALUES ($1, $2, $3)
+        INSERT INTO specializations (uuid, name)
+        VALUES ($1, $2)
     `,
-    [specializationUuid, doctorUuid, specialization],
+    [specializationUuid, specialization],
   );
 }
 

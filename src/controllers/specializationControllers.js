@@ -7,8 +7,7 @@ async function create(request, response) {
   const { CREATED } = codes;
 
   try {
-    const doctorUuid = response.locals.doctor_uuid;
-    await specializationServices.create({ name, doctorUuid });
+    await specializationServices.create({ name });
 
     return response.sendStatus(CREATED);
   } catch (error) {

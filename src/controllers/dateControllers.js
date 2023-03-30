@@ -8,6 +8,9 @@ async function createDate(request, response) {
 
   try {
     const doctorUuid = response.locals.doctor_uuid;
+
+    await dateServices.getDate({ start, day });
+
     await dateServices.create({
       start,
       finish,

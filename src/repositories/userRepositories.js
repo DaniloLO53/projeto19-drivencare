@@ -9,13 +9,13 @@ async function getByEmail(email) {
   );
 }
 
-async function insertUser({ name, email, password, is_doctor, uuid }) {
+async function insertUser({ name, email, password, is_doctor, is_admin, uuid }) {
   return await db.query(
     `
-        INSERT INTO users (name, email, password, is_doctor, uuid)
-        VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO users (name, email, password, is_doctor, uuid, is_admin)
+        VALUES ($1, $2, $3, $4, $5, $6)
     `,
-    [name, email, password, is_doctor, uuid],
+    [name, email, password, is_doctor, uuid, is_admin],
   );
 }
 
