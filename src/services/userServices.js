@@ -22,6 +22,31 @@ async function create({ name, email, password, is_doctor }) {
   });
 }
 
+async function enter({ email, password }) {
+  const { rows: users } = await userRepositories.getByEmail(email);
+  const [user] = users;
+  const { uuid } = user;
+
+  await descrypt(password, user.password);
+
+  if (!user) throw new Error(messages.NO_USER);
+
+  const token = createToken(uuid);
+
+  await userRepositories.createSession({ token, uuid });
+}
+
+async function descrypt(passwordFromRequest, passwordFromDb) {
+  const validPassword = await bcrypt.compare(passwordFromRequest, passwordFromDb);
+
+  if (!validPassword) throw new Error(messages.NO_USER);
+}
+
+function createToken(uuid) {
+  return uuid;
+}
+
 export default {
   create,
+  enter,
 };
