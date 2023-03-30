@@ -19,6 +19,16 @@ async function insertUser({ name, email, password, is_doctor, uuid }) {
   );
 }
 
+async function insertSession({ token, userUuid, sessionUuid }) {
+  return await db.query(
+    `
+        INSERT INTO sessions (token, user_uuid, uuid)
+        VALUES ($1, $2, $3)
+    `,
+    [token, userUuid, sessionUuid],
+  );
+}
+
 async function verifyIsDoctor(token) {
   return await db.query(
     `    
@@ -36,4 +46,5 @@ export default {
   getByEmail,
   insertUser,
   verifyIsDoctor,
+  insertSession,
 };

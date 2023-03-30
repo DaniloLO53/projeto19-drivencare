@@ -29,15 +29,17 @@ async function create({ name, email, password, is_doctor }) {
 async function enter({ email, password }) {
   const { rows: users } = await userRepositories.getByEmail(email);
   const [user] = users;
-  const { uuid } = user;
+  const { uuid: userUuid } = user;
 
   await descrypt(password, user.password);
 
   if (!user) throw new Error(messages.NO_USER);
 
-  const token = tokenGenerators.generateToken(uuid);
+  const token = tokenGenerators.generateToken(userUuid);
 
-  await userRepositories.createSession({ token, uuid });
+  const sessionUuid = uuidv4();
+
+  await userRepositories.insertSession({ token, userUuid, sessionUuid });
 }
 
 async function descrypt(passwordFromRequest, passwordFromDb) {
