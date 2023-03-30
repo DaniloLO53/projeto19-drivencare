@@ -1,5 +1,5 @@
 import express from "express";
-import { validateSchema } from "../middleware/validateSchema.js";
+import { validateSchema } from "../middlewares/validateSchema.js";
 import signinSchema from "../schemas/signin.js";
 import signupSchema from "../schemas/signup.js";
 
