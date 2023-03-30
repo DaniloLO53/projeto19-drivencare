@@ -3,12 +3,18 @@ import codes from "../utils/constants/codes.js";
 import errorHandlers from "../utils/errors/errorHandlers.js";
 
 async function createDate(request, response) {
-  const { name } = request.body;
+  const { start, finish, day, avaliable } = request.body;
   const { CREATED } = codes;
 
   try {
     const doctorUuid = response.locals.doctor_uuid;
-    await userServices.createSpecialization({ name, doctorUuid });
+    await userServices.createDate({
+      start,
+      finish,
+      day,
+      avaliable,
+      doctorUuid,
+    });
 
     return response.sendStatus(CREATED);
   } catch (error) {
