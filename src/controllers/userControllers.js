@@ -16,6 +16,21 @@ async function create(request, response) {
   }
 }
 
+async function enter(request, response) {
+  const { email, password } = request.body;
+  const { CREATED } = codes;
+
+  try {
+    const token = await userServices.enter({ password, email });
+
+    return response.status(CREATED).send({ token });
+  } catch (error) {
+    console.log(error);
+    errorHandlers.handle(error, response);
+  }
+}
+
 export default {
   create,
+  enter,
 };

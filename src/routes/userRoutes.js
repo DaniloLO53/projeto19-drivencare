@@ -7,6 +7,6 @@ import signupSchema from "../schemas/signup.js";
 const userRoute = express.Router();
 
 userRoute.post("/sign-up", validateSchema(signupSchema), userControllers.create);
-userRoute.post("/sign-in", validateSchema(signinSchema));
+userRoute.post("/sign-in", validateSchema(signinSchema), userControllers.enter);
 
 export default userRoute;
