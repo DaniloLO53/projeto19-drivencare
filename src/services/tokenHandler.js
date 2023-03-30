@@ -4,16 +4,23 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-function generateToken(uuid) {
+function generate(user) {
   const days = 3;
   const key = process.env.SECRET_KEY;
-  const token = jwt.sign({ uuid }, key, {
+  const token = jwt.sign(user, key, {
     expiresIn: (DAY_TO_MILLISECONDS * days) / 1000,
   });
 
   return token;
 }
 
+function verify(token, callback) {
+  const key = process.env.SECRET_KEY;
+
+  jwt.verify(token, key, callback);
+}
+
 export default {
-  generateToken,
+  generate,
+  verify,
 };

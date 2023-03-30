@@ -2,7 +2,7 @@ import userRepositories from "../repositories/userRepositories.js";
 import messages from "../utils/constants/messages.js";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
-import tokenGenerators from "./tokenGenerator.js";
+import tokenHandler from "./tokenHandler.js";
 
 async function create({ name, email, password, is_doctor }) {
   const { rows: users } = await userRepositories.getByEmail(email);
@@ -28,15 +28,12 @@ async function enter({ email, password }) {
   if (users.length === 0) throw new Error(messages.NO_USER);
 
   const [user] = users;
-  const { uuid: userUuid } = user;
 
   await descrypt(password, user.password);
 
-  const token = tokenGenerators.generateToken(userUuid);
+  const token = tokenHandler.generate(user);
 
-  const sessionUuid = uuidv4();
-
-  await userRepositories.insertSession({ token, userUuid, sessionUuid });
+  // await userRepositories.insertSession({ token, userUuid, sessionUuid });
 
   return token;
 }
