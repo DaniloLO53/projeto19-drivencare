@@ -11,6 +11,7 @@
   "printWidth": 90,
   "proseWrap": "preserve",
   "quoteProps": "as-needed",
+  "object-curly-spacing": ["error", "always"],
   "overrides": [
     {
       "files": "*.md",
