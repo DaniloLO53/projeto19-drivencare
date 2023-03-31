@@ -6,7 +6,7 @@ const uuidPattern =
   /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[8|9|aA|bB][a-f0-9]{3}-[a-f0-9]{12}$/i;
 
 const specializationSchema = Joi.object({
-  name: Joi.string().trim().min(1).max(100).required(),
+  name: Joi.string().trim().min(1).max(50).required(),
 });
 
 const dateSchema = Joi.object({

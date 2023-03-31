@@ -1,8 +1,10 @@
 import codes from "../utils/constants/codes.js";
 
-export function validateSchema(schema) {
+export function validateSchema(schema, byParams = false) {
   return (request, response, next) => {
-    const { error } = schema.validate(request.body, { abortEarly: false });
+    const { error } = schema.validate(request[byParams ? "params" : "body"], {
+      abortEarly: false,
+    });
     if (error) {
       console.log(error.message);
       return response

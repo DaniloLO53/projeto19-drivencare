@@ -41,7 +41,7 @@ CREATE TABLE locations (
 	id SERIAL PRIMARY KEY,
 	uuid TEXT UNIQUE NOT NULL,
 	user_uuid TEXT NOT NULL REFERENCES users(uuid),
-	city_uuid TEXT NOT NULL REFERENCES cities(uuid),
+	district_uuid INTEGER NOT NULL REFERENCES cities(uuid),
 	created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
 );
 
