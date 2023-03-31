@@ -35,9 +35,18 @@ const specializationDoctorSchema = Joi.object({
     .required(),
 });
 
+const consultationSchema = Joi.object({
+  specialization_date_uuid: Joi.string()
+    .trim()
+    .min(1)
+    .regex(new RegExp(uuidPattern))
+    .required(),
+});
+
 export {
   specializationSchema,
   dateSchema,
   specializationDateSchema,
   specializationDoctorSchema,
+  consultationSchema,
 };

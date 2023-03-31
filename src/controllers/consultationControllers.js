@@ -1,20 +1,17 @@
-import dateServices from "../services/dateServices.js";
+import consultationServices from "../services/consultationServices.js";
 import codes from "../utils/constants/codes.js";
 import errorHandlers from "../utils/errors/errorHandlers.js";
 
 async function create(request, response) {
-  const { start, finish, day, avaliable } = request.body;
+  const { specialization_date_uuid } = request.body;
   const { CREATED } = codes;
 
   try {
-    const doctorUuid = response.locals.doctor_uuid;
+    const patient_uuid = response.locals.patient_uuid;
 
-    await dateServices.create({
-      start,
-      finish,
-      day,
-      avaliable,
-      doctorUuid,
+    await consultationServices.create({
+      specialization_date_uuid,
+      patient_uuid,
     });
 
     return response.sendStatus(CREATED);

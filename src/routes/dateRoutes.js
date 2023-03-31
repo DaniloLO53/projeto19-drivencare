@@ -10,7 +10,7 @@ dateRoute.post(
   "/create",
   validateSchema(dateSchema),
   verifyIsDoctor.verify,
-  dateControllers.createDate,
+  dateControllers.create,
 );
 
 export default dateRoute;
