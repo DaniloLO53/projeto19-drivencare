@@ -34,9 +34,13 @@ async function enter({ email, password }) {
 
   const token = tokenHandler.generate(user);
 
-  // await userRepositories.insertSession({ token, userUuid, sessionUuid });
-
   return token;
+}
+
+async function get(data) {
+  const doctors = await userRepositories.get(data);
+
+  return doctors;
 }
 
 async function descrypt(passwordFromRequest, passwordFromDb) {
@@ -48,4 +52,5 @@ async function descrypt(passwordFromRequest, passwordFromDb) {
 export default {
   create,
   enter,
+  get,
 };
