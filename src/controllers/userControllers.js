@@ -28,7 +28,27 @@ async function enter(request, response) {
   }
 }
 
+async function get(request, response) {
+  const { name, specialization, district, city, state } = request.params;
+  const { OK } = codes;
+
+  try {
+    const doctors = await userServices.get({
+      name,
+      specialization,
+      district,
+      city,
+      state,
+    });
+
+    return response.status(OK).send({ doctors });
+  } catch (error) {
+    errorHandlers.handle(error, response);
+  }
+}
+
 export default {
   create,
   enter,
+  get,
 };
