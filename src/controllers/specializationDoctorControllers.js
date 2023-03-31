@@ -1,4 +1,4 @@
-import specizalizationDoctorServices from "../services/specizalizationDoctorServices.js";
+import specizalizationDoctorServices from "../services/specializationDoctorServices.js";
 import codes from "../utils/constants/codes.js";
 import errorHandlers from "../utils/errors/errorHandlers.js";
 

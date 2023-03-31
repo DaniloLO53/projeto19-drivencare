@@ -29,7 +29,7 @@ async function enter(request, response) {
 }
 
 async function get(request, response) {
-  const { name, specialization, district, city, state } = request.params;
+  const { name, specialization, district, city, state } = request.query;
   const { OK } = codes;
 
   try {

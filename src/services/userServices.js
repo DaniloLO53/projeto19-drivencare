@@ -38,7 +38,7 @@ async function enter({ email, password }) {
 }
 
 async function get(data) {
-  const doctors = await userRepositories.get(data);
+  const { rows: doctors } = await userRepositories.get(data);
 
   return doctors;
 }

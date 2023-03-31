@@ -1,4 +1,4 @@
-import specizalizationDateServices from "../services/specizalizationDateServices.js";
+import specizalizationDateServices from "../services/specializationDateServices.js";
 import codes from "../utils/constants/codes.js";
 import errorHandlers from "../utils/errors/errorHandlers.js";
 

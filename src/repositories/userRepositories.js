@@ -29,22 +29,45 @@ async function insertSession({ token, userUuid, sessionUuid }) {
   );
 }
 
-async function verifyIsDoctor(token) {
-  return await db.query(
-    `
-    SELECT users.is_doctor, users.uuid
-    FROM users
-    JOIN sessions
-      ON sessions.user_uuid = users.uuid
-    WHERE token = $1
-  `,
-    [token],
-  );
+async function get({ name, specialization, district, city, state }) {
+  console.log(name, district);
+  let query = `
+    SELECT u.uuid AS user_uuid,
+    u.name AS user_name,
+    d.name AS district_name,
+    sp.name AS specialization_name,
+    ct.name AS city_name,
+    st.uf AS state_uf
+    FROM users u
+    LEFT JOIN locations l
+      ON l.user_uuid = u.uuid
+    LEFT JOIN districts d
+      ON d.id = l.district_id
+    LEFT JOIN cities ct
+      ON ct.id = d.city_id
+    LEFT JOIN states st
+      ON st.id = ct.state_id
+    LEFT JOIN specializations_doctor spd
+      ON spd.doctor_uuid = u.uuid
+    LEFT JOIN specializations sp
+      ON sp.uuid = spd.specialization_uuid
+    WHERE u.name ILIKE '%${name}%'`;
+
+  specialization && (query += ` AND sp.name ILIKE '%${specialization}%'`);
+  district && (query += ` AND d.name ILIKE '%${district}%'`);
+  city && (query += ` AND ct.name ILIKE '%${city}%'`);
+  state && (query += ` AND st.uf ILIKE '%${state}%'`);
+
+  query += " ORDER BY district_name, user_name";
+
+  console.log(query);
+
+  return await db.query(query);
 }
 
 export default {
   getByEmail,
   insertUser,
-  verifyIsDoctor,
   insertSession,
+  get,
 };

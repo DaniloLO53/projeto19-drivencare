@@ -2,7 +2,7 @@ import codes from "../utils/constants/codes.js";
 
 export function validateSchema(schema, byParams = false) {
   return (request, response, next) => {
-    const { error } = schema.validate(request[byParams ? "params" : "body"], {
+    const { error } = schema.validate(request[byParams ? "query" : "body"], {
       abortEarly: false,
     });
     if (error) {

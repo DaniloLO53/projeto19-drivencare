@@ -8,7 +8,7 @@ import userRoutes from "./userRoutes.js";
 
 const routes = Router();
 
-routes.use("/users", userRoutes);
+routes.use("/", userRoutes);
 routes.use("/specializations", specializationRoute);
 routes.use("/specializations-dates", specializationDateRoute);
 routes.use("/specializations-doctors", specializationDoctorRoute);
