@@ -67,6 +67,20 @@ async function assignSpecialization(request, response) {
 
   try {
     await userServices.assignSpecialization({ specialization_uuid, doctor_uuid });
+    console.log(specialization_uuid);
+
+    return response.sendStatus(CREATED);
+  } catch (error) {
+    errorHandlers.handle(error, response);
+  }
+}
+
+async function assignSpecializationToDate(request, response) {
+  const { specialization_uuid, date_uuid } = request.body;
+  const { CREATED } = codes;
+
+  try {
+    await userServices.assignSpecializationToDate({ specialization_uuid, date_uuid });
 
     return response.sendStatus(CREATED);
   } catch (error) {
@@ -80,4 +94,5 @@ export default {
   get,
   getDates,
   assignSpecialization,
+  assignSpecializationToDate,
 };

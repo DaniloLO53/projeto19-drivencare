@@ -18,5 +18,11 @@ userRoute.post(
   userControllers.assignSpecialization,
 );
 userRoute.get("/users/:uuid/dates", verifyIsPatient.verify, userControllers.getDates);
+userRoute.post(
+  "/users/dates",
+  verifyIsDoctor.verify,
+  userControllers.assignSpecializationToDate,
+);
+userRoute.get("/users/:uuid/dates", verifyIsPatient.verify, userControllers.getDates);
 
 export default userRoute;

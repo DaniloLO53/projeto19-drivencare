@@ -19,6 +19,16 @@ async function getBySpecialization({ specialization_uuid, doctor_uuid }) {
   );
 }
 
+async function getBySpecializationAndDate({ specialization_uuid, date_uuid }) {
+  return await db.query(
+    `    
+    SELECT * FROM specializations_date
+    WHERE specialization_uuid = $1 AND date_uuid = $2
+  `,
+    [specialization_uuid, date_uuid],
+  );
+}
+
 async function insertUser({ name, email, password, is_doctor, is_admin, uuid }) {
   return await db.query(
     `
@@ -46,6 +56,16 @@ async function assignSpecialization({ uuid, doctor_uuid, specialization_uuid }) 
         VALUES ($1, $2, $3)
     `,
     [uuid, doctor_uuid, specialization_uuid],
+  );
+}
+
+async function assignSpecializationToDate({ uuid, date_uuid, specialization_uuid }) {
+  return await db.query(
+    `
+        INSERT INTO specializations_date (uuid, date_uuid, specialization_uuid)
+        VALUES ($1, $2, $3)
+    `,
+    [uuid, date_uuid, specialization_uuid],
   );
 }
 
@@ -97,7 +117,9 @@ export default {
   insertUser,
   insertSession,
   assignSpecialization,
+  assignSpecializationToDate,
   get,
   getDates,
   getBySpecialization,
+  getBySpecializationAndDate,
 };

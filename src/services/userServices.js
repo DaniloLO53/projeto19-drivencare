@@ -75,10 +75,30 @@ async function assignSpecialization({ specialization_uuid, doctor_uuid }) {
   });
 }
 
+async function assignSpecializationToDate({ specialization_uuid, date_uuid }) {
+  const { rows: relations } = await userRepositories.getBySpecializationAndDate({
+    date_uuid,
+    specialization_uuid,
+  });
+  const [relation] = relations;
+
+  if (relation) {
+    throw new Error(messages.ALREADY_DATE_TO_SPECIALIZATION);
+  }
+  const uuid = uuidv4();
+
+  await userRepositories.assignSpecializationToDate({
+    uuid,
+    date_uuid,
+    specialization_uuid,
+  });
+}
+
 export default {
   create,
   enter,
   get,
   getDates,
   assignSpecialization,
+  assignSpecializationToDate,
 };
