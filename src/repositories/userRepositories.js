@@ -9,6 +9,16 @@ async function getByEmail(email) {
   );
 }
 
+async function getBySpecialization({ specialization_uuid, doctor_uuid }) {
+  return await db.query(
+    `    
+    SELECT * FROM specializations_doctor
+    WHERE specialization_uuid = $1 AND doctor_uuid = $2
+  `,
+    [specialization_uuid, doctor_uuid],
+  );
+}
+
 async function insertUser({ name, email, password, is_doctor, is_admin, uuid }) {
   return await db.query(
     `
@@ -26,6 +36,16 @@ async function insertSession({ token, userUuid, sessionUuid }) {
         VALUES ($1, $2, $3)
     `,
     [token, userUuid, sessionUuid],
+  );
+}
+
+async function assignSpecialization({ uuid, doctor_uuid, specialization_uuid }) {
+  return await db.query(
+    `
+        INSERT INTO specializations_doctor (uuid, doctor_uuid, specialization_uuid)
+        VALUES ($1, $2, $3)
+    `,
+    [uuid, doctor_uuid, specialization_uuid],
   );
 }
 
@@ -60,14 +80,24 @@ async function get({ name, specialization, district, city, state }) {
 
   query += " ORDER BY district_name, user_name";
 
-  console.log(query);
-
   return await db.query(query);
+}
+
+async function getDates(uuid) {
+  return await db.query(
+    `    
+    SELECT uuid, start, finish, day, avaliable FROM dates WHERE uuid = $1;
+  `,
+    [uuid],
+  );
 }
 
 export default {
   getByEmail,
   insertUser,
   insertSession,
+  assignSpecialization,
   get,
+  getDates,
+  getBySpecialization,
 };

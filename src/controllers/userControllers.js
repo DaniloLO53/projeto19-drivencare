@@ -47,8 +47,37 @@ async function get(request, response) {
   }
 }
 
+async function getDates(request, response) {
+  const { uuid } = request.params;
+  const { OK } = codes;
+
+  try {
+    const dates = await userServices.getDates(uuid);
+
+    return response.status(OK).send({ dates });
+  } catch (error) {
+    errorHandlers.handle(error, response);
+  }
+}
+
+async function assignSpecialization(request, response) {
+  const { specialization_uuid } = request.body;
+  const doctor_uuid = response.locals.doctor_uuid;
+  const { CREATED } = codes;
+
+  try {
+    await userServices.assignSpecialization({ specialization_uuid, doctor_uuid });
+
+    return response.sendStatus(CREATED);
+  } catch (error) {
+    errorHandlers.handle(error, response);
+  }
+}
+
 export default {
   create,
   enter,
   get,
+  getDates,
+  assignSpecialization,
 };

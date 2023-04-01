@@ -10,7 +10,7 @@ function handle(error, response) {
     UNPROCESSABLE_ENTITY,
   } = codes;
 
-  const { USER_ALREADY_EXISTS, NO_USER } = messages;
+  const { USER_ALREADY_EXISTS, NO_USER, ALREADY_HAVE_SPECIALIZATION } = messages;
 
   let statusCode;
 
@@ -24,6 +24,9 @@ function handle(error, response) {
       statusCode = BAD_REQUEST;
       break;
     case USER_ALREADY_EXISTS:
+      statusCode = CONFLICT;
+      break;
+    case ALREADY_HAVE_SPECIALIZATION:
       statusCode = CONFLICT;
       break;
     case UNPROCESSABLE_ENTITY:
